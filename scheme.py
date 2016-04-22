@@ -287,13 +287,27 @@ def do_if_form(expressions, env):
 def do_and_form(expressions, env):
     """Evaluate a short-circuited and form."""
     # BEGIN Question 14B
-    "*** REPLACE THIS LINE ***"
+    if expressions is nil:
+        return True
+    runner = expressions
+    while runner.second is not nil:
+        if scheme_false(scheme_eval(runner.first, env)):
+            return False
+        runner = runner.second
+    return scheme_eval(runner.first, env)
     # END Question 14B
 
 def do_or_form(expressions, env):
     """Evaluate a short-circuited or form."""
     # BEGIN Question 14B
-    "*** REPLACE THIS LINE ***"
+    if expressions is nil:
+        return False
+    runner = expressions
+    while runner is not nil:
+        if scheme_true(scheme_eval(runner.first, env)):
+            return scheme_eval(runner.first, env)
+        runner = runner.second
+    return False
     # END Question 14B
 
 def do_cond_form(expressions, env):
