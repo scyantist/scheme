@@ -1,0 +1,6 @@
+(define (inner z x)
+ (+ x (* y 2) (* z 3)))
+(inner x 10))
+(define (inner z x)
+ (+ x (* y 2) (* z 3)))
+inner)
