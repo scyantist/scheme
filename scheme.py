@@ -92,6 +92,7 @@ class Frame:
             return self.lookup(symbol)
         else:
         # END Question 3
+            #pdb.set_trace()
             raise SchemeError("unknown identifier: {0}".format(symbol))
 
     def make_child_frame(self, formals, vals):
@@ -194,7 +195,8 @@ class LambdaProcedure(UserDefinedProcedure):
         """Make a frame that binds the my formal parameters to ARGS, a
         Scheme list of values, for a call evaluated in environment env."""
         # BEGIN Question 12
-        "*** REPLACE THIS LINE ***"
+        #pdb.set_trace()
+        return self.env.make_child_frame(self.formals, args)
         # END Question 12
 
     def __str__(self):
@@ -271,9 +273,15 @@ def do_lambda_form(expressions, env):
 
 def do_if_form(expressions, env):
     """Evaluate an if form."""
+    #pdb.set_trace()
     check_form(expressions, 2, 3)
     # BEGIN Question 13
-    "*** REPLACE THIS LINE ***"
+    if scheme_true(scheme_eval(expressions.first, env)):
+        return scheme_eval(expressions.second.first, env)
+    elif expressions.second.second is not nil:
+        return scheme_eval(expressions.second.second.first, env)
+    else:
+        return None
     # END Question 13
 
 def do_and_form(expressions, env):
@@ -357,7 +365,20 @@ def check_formals(formals):
     >>> check_formals(read_line("(a b c)"))
     """
     # BEGIN Question 11B
-    "*** REPLACE THIS LINE ***"
+    #pdb.set_trace()
+    if not scheme_listp(formals):
+        raise SchemeError("badly formed formals list: " + str(formals))
+    parameters = set()
+    runner = formals
+    while runner is not nil:
+        parameter = runner.first
+        if not scheme_symbolp(parameter):
+            raise SchemeError("Parameter is not a symbol: " + str(parameter))
+        if parameter in parameters:
+            raise SchemeError("Repeated formal parameter: " + str(parameter))
+        parameters.add(parameter)
+        runner = runner.second
+    return
     # END Question 11B
 
 #################
