@@ -51,8 +51,15 @@ def scheme_apply(procedure, args, env):
 def eval_all(expressions, env):
     """Evaluate a Scheme list of EXPRESSIONS & return the value of the last."""
     # BEGIN Question 7
-    "*** REPLACE THIS LINE ***"
-    return scheme_eval(expressions.first, env)
+    if expressions is nil:
+        return None
+    #create runner
+    pointer = expressions
+    while pointer.second is not nil:
+        scheme_eval(pointer.first, env)
+        #move runner
+        pointer = pointer.second
+    return scheme_eval(pointer.first, env)
     # END Question 7
 
 ################
@@ -252,7 +259,7 @@ def do_lambda_form(expressions, env):
     formals = expressions.first
     check_formals(formals)
     # BEGIN Question 8
-    "*** REPLACE THIS LINE ***"
+    return LambdaProcedure(formals, expressions.second, env)
     # END Question 8
 
 def do_if_form(expressions, env):
