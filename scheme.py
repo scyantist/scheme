@@ -234,8 +234,10 @@ def do_define_form(expressions, env):
             return expressions.first
         # END Question 5A
     elif isinstance(target, Pair) and scheme_symbolp(target.first):
+        #pdb.set_trace()
         # BEGIN Question 9A
-        "*** REPLACE THIS LINE ***"
+        env.define(expressions.first.first, do_lambda_form(Pair(expressions.first.second, expressions.second), env))
+        return expressions.first.first
         # END Question 9A
     else:
         bad = target.first if isinstance(target, Pair) else target
