@@ -107,7 +107,12 @@ class Frame:
         """
         child = Frame(self) # Create a new child with self as the parent
         # BEGIN Question 10
-        "*** REPLACE THIS LINE ***"
+        if len(formals) != len(vals):
+            raise SchemeError("Number of parameters must equal number of arguments")
+        while formals is not nil:
+            child.define(formals.first, vals.first)
+            formals = formals.second
+            vals = vals.second
         # END Question 10
         return child
 
